@@ -12,7 +12,12 @@ int led2 = 3;
 int led3 = 4;
 int led4 = 5;
 
+int solution[100];
+int player[100];
+
 int pauseT = 200;
+
+
 
 void setup(){
   pinMode(input1, INPUT);
@@ -24,9 +29,11 @@ void setup(){
   pinMode(led2, OUTPUT);
   pinMode(led3, OUTPUT);
   pinMode(led4, OUTPUT);
+  
   Serial.begin(9600);
   Serial.print("Starting");
-  digitalWrite(led1, LOW);
+  
+  randomSeed(analogRead(0));
 }
 
 void pause(int inputnum, int lednum){
@@ -35,6 +42,14 @@ void pause(int inputnum, int lednum){
     delay(pauseT);
   }
   digitalWrite(lednum, LOW);
+}
+
+void randomSolution(){
+ for (int i = 0; i < 100; i++){
+  solution[i] = random(1,4);
+  player[i] = 0;
+  Serial.print(solution[i]);
+ } 
 }
 
 void buttonPressed(){
@@ -56,6 +71,8 @@ void buttonPressed(){
   }
 }
 void loop(){
+  
+  randomSolution();
   
   buttonPressed();
 }
