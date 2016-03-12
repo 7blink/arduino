@@ -14,6 +14,8 @@ int led4 = 5;
 
 int solution[100];
 int player[100];
+int level;
+boolean gamePlay;
 
 int pauseT = 200;
 
@@ -50,6 +52,8 @@ void randomSolution(){
   player[i] = 0;
   Serial.print(solution[i]);
  } 
+ level = 0;
+ gamePlay = true;
 }
 
 void buttonPressed(){
@@ -70,10 +74,21 @@ void buttonPressed(){
     pause(input4, led4);
   }
 }
+
+void mainLoop(){
+  while(gamePlay){
+    displayLevel();
+    
+    while(!inputYet){
+     buttonPressed(); 
+    }
+  }
+}
+
 void loop(){
   
   randomSolution();
   
-  buttonPressed();
+  mainLoop();
 }
   
